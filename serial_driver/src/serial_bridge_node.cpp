@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "serial_driver/serial_bridge_node.hpp"
+#include "boost_serial_driver/serial_bridge_node.hpp"
 
 #include <memory>
 #include <string>

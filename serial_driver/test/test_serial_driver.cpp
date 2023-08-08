@@ -16,7 +16,7 @@
 
 #include <string>
 
-#include "serial_driver/serial_driver.hpp"
+#include "boost_serial_driver/serial_driver.hpp"
 
 using drivers::serial_driver::FlowControl;
 using drivers::serial_driver::Parity;

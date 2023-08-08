@@ -17,7 +17,7 @@
 #include <string>
 #include <vector>
 
-#include "serial_driver/serial_port.hpp"
+#include "boost_serial_driver/serial_port.hpp"
 
 using spb = boost::asio::serial_port_base;
 using drivers::serial_driver::FlowControl;
