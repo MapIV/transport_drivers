@@ -13,6 +13,8 @@
 
   <buildtool_depend>ament_cmake_auto</buildtool_depend>
 
+  <build_depend>libboost-dev</build_depend>
+
   <depend>io_context</depend>
   <depend>rclcpp</depend>
   <depend>rclcpp_components</depend>
