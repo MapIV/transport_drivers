@@ -35,11 +35,13 @@ UdpSocket::UdpSocket(
   const std::string & remote_ip,
   const uint16_t remote_port,
   const std::string & host_ip,
-  const uint16_t host_port)
+  const uint16_t host_port, 
+  const size_t recv_buffer_size)
 : m_ctx(ctx),
   m_udp_socket(ctx.ios()),
   m_remote_endpoint(boost::asio::ip::address::from_string(remote_ip), remote_port),
-  m_host_endpoint(boost::asio::ip::address::from_string(host_ip), host_port)
+  m_host_endpoint(boost::asio::ip::address::from_string(host_ip), host_port),
+  m_recv_buffer_size(recv_buffer_size)
 {
   m_remote_endpoint = remote_ip.empty() ?
     boost::asio::ip::udp::endpoint{boost::asio::ip::udp::v4(), remote_port} :
@@ -47,8 +49,25 @@ UdpSocket::UdpSocket(
   m_host_endpoint = host_ip.empty() ?
     boost::asio::ip::udp::endpoint{boost::asio::ip::udp::v4(), host_port} :
   boost::asio::ip::udp::endpoint{boost::asio::ip::address::from_string(host_ip), host_port};
-  m_recv_buffer.resize(m_recv_buffer_size);
+  m_recv_buffer.resize(recv_buffer_size);
 }
+
+UdpSocket::UdpSocket(
+  const drivers::common::IoContext & ctx,
+  const std::string & remote_ip,
+  const uint16_t remote_port,
+  const std::string & host_ip,
+  const uint16_t host_port) 
+  : UdpSocket(ctx, remote_ip, remote_port, host_ip, host_port, m_default_recv_buffer_size)
+  {}
+
+UdpSocket::UdpSocket(
+  const drivers::common::IoContext & ctx,
+  const std::string & ip,
+  const uint16_t port,
+  const size_t recv_buffer_size)
+: UdpSocket{ctx, ip, port, ip, port, recv_buffer_size}
+{}
 
 UdpSocket::UdpSocket(
   const drivers::common::IoContext & ctx,

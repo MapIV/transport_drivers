@@ -40,7 +40,16 @@ public:
     const std::string & host_ip, uint16_t host_port);
   UdpSocket(
     const drivers::common::IoContext & ctx,
+    const std::string & remote_ip, uint16_t remote_port,
+    const std::string & host_ip, uint16_t host_port, 
+    size_t recv_buffer_size);
+  UdpSocket(
+    const drivers::common::IoContext & ctx,
     const std::string & ip, uint16_t port);
+  UdpSocket(
+    const drivers::common::IoContext & ctx,
+    const std::string & ip, uint16_t port,
+    size_t recv_buffer_size);
   ~UdpSocket();
 
   UdpSocket(const UdpSocket &) = delete;
@@ -91,7 +100,8 @@ private:
   boost::asio::ip::udp::endpoint m_remote_endpoint;
   boost::asio::ip::udp::endpoint m_host_endpoint;
   Functor m_func;
-  static const size_t m_recv_buffer_size{2048};
+  static constexpr size_t m_default_recv_buffer_size{2048};
+  size_t m_recv_buffer_size;
   std::vector<uint8_t> m_recv_buffer;
 };
 
